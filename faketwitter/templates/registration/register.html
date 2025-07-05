@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<h2 class='conatiner mt-5'>Register form</h2>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary">Register</button>
+</form>
+{% endblock %}
