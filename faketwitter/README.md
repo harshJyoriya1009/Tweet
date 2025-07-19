@@ -1,2 +1,0 @@
-"# myTweet" 
-"# myTweet" 
