@@ -1,0 +1,4 @@
+*.py linguist-language=Python
+static/** linguist-vendored
+node_modules/** linguist-vendored
+*.js linguist-vendored
