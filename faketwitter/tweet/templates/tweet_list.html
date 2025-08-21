@@ -7,20 +7,89 @@ My Tweet
 {% block content %}
 <h1 class='text-center mt-4'>Welcome to MyTweet Project</h1>
 
-<a class='btn btn-primary mb-4' href="{%url 'tweet_create'%}"> Create Tweets</a>
-<div class="conatiner row gap-3">
-    {% for tweet in tweets  %}
+<a class='btn btn-primary mb-4' href="{% url 'tweet_create' %}"> Create Tweets</a>
+<div class="container row gap-3">
+    {% for tweet in tweets %}
     <div class="card" style="width: 18rem;">
-        <img src="{{tweet.photo.url}}" class="card-img-top" alt="...">
+      
+        <button class="img-btn">
+            <img src="{{ tweet.photo.url }}" class="card-img-top thumb" alt="...">
+        </button>
+
         <div class="card-body">
-          <h5 class="card-title">{{tweet.user.username}}</h5>
-          <p class="card-text">{{tweet.text}}</p>
+          <h5 class="card-title">{{ tweet.user.username }}</h5>
+          <p class="card-text">{{ tweet.text }}</p>
           {% if tweet.user == user %}
           <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
           <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
           {% endif %}
         </div>
-      </div>
+    </div>
     {% endfor %}
 </div>
+
+<!-- Modal (hidden initially) -->
+<div id="imgModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="fullImg">
+</div>
+
+<style>
+
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
+<script>
+const modal = document.getElementById("imgModal");
+const modalImg = document.getElementById("fullImg");
+const span = document.getElementsByClassName("close")[0];
+
+
+document.querySelectorAll(".img-btn img").forEach(img => {
+    img.addEventListener("click", function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;  
+    });
+});
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+
+modal.onclick = function(e) {
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+
 {% endblock %}
