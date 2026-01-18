@@ -12,9 +12,11 @@ My Tweet
     {% for tweet in tweets %}
     <div class="card" style="width: 18rem;">
       
-        <button class="img-btn">
-            <img src="{{ tweet.photo.url }}" class="card-img-top thumb" alt="...">
-        </button>
+        {% if tweet.photo %}
+<button class="img-btn">
+    <img src="{{ tweet.photo.url }}" class="card-img-top thumb" alt="Tweet image">
+</button>
+{% endif %}
 
         <div class="card-body">
           <h5 class="card-title">{{ tweet.user.username }}</h5>
